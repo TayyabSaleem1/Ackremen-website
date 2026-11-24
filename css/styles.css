@@ -1,0 +1,1134 @@
+/* ==========================================================================
+   ACKREMEN · Neo-Minimalist Desktop Glass Design System
+   Exact Color Tokens & Styling Specification
+   ========================================================================== */
+
+:root {
+  /* Light Theme (Warm Paper & Frosted Glass) */
+  --bg-canvas: #F2EEF4;
+  --bg-surface: rgba(255, 255, 255, 0.75);
+  --bg-raised: rgba(255, 255, 255, 0.60);
+  --border-surface: 1px solid rgba(255, 255, 255, 0.65);
+  --border-subtle: rgba(23, 21, 23, 0.08);
+
+  --text-primary: #171517;
+  --text-secondary: #625D60;
+  --text-muted: #6F686C;
+
+  /* Brand Accents */
+  --accent-action: #D94FB3;
+  --accent-action-hover: #E56BC2;
+  --accent-secondary: #75A6D8;
+  --accent-signature: #287F73;
+
+  /* Soft Card Tints */
+  --tint-orchid: #F8EAF2;
+  --tint-blue: #EDF5FA;
+
+  /* Status Badges */
+  --status-trusted: #237A63;
+  --status-warning: #8A6100;
+  --status-danger: #B4233D;
+
+  --font-sans: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+
+  /* Shadows */
+  --shadow-glass: 0 12px 36px -6px rgba(23, 21, 23, 0.05), 0 0 1px 1px rgba(255, 255, 255, 0.7);
+  --shadow-action: 0 8px 24px -2px rgba(217, 79, 179, 0.35);
+}
+
+/* Base Setup */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* Subtle Warm Ambient Background */
+.ambient-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: 
+    radial-gradient(circle at 18% 10%, rgba(248, 234, 242, 0.8) 0%, transparent 50%),
+    radial-gradient(circle at 82% 15%, rgba(237, 245, 250, 0.8) 0%, transparent 55%),
+    radial-gradient(circle at 50% 85%, rgba(248, 234, 242, 0.6) 0%, transparent 60%);
+}
+
+/* ==========================================================================
+   SIGNATURE PINK / ORCHID HIGHLIGHT BOX (Cute & Minimalist Tag - Image 2)
+   ========================================================================== */
+.orchid-tag {
+  display: inline-block;
+  position: relative;
+  padding: 0.12em 0.55em;
+  margin: 0 0.15em;
+  color: var(--accent-action);
+  background-color: #FAF1F7;
+  border: 1.25px solid var(--accent-action);
+  border-radius: 8px;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  line-height: 1.15;
+  box-shadow: 0 2px 10px rgba(217, 79, 179, 0.12);
+  user-select: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.orchid-tag:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(217, 79, 179, 0.25);
+}
+
+/* Vector selection corner ticks (Cute Minimalist Handles - Image 2) */
+.orchid-tag::before,
+.orchid-tag::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #FFFFFF;
+  border: 1.2px solid var(--accent-action);
+  border-radius: 1px;
+  z-index: 2;
+}
+
+.orchid-tag::before {
+  top: -2.5px;
+  left: -2.5px;
+}
+
+.orchid-tag::after {
+  bottom: -2.5px;
+  right: -2.5px;
+}
+
+.orchid-tag-ticks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.orchid-tag-ticks::before,
+.orchid-tag-ticks::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #FFFFFF;
+  border: 1.2px solid var(--accent-action);
+  border-radius: 1px;
+  z-index: 2;
+}
+
+.orchid-tag-ticks::before {
+  top: -2.5px;
+  right: -2.5px;
+}
+
+.orchid-tag-ticks::after {
+  bottom: -2.5px;
+  left: -2.5px;
+}
+
+/* ==========================================================================
+   BUTTONS & PILLS (#D94FB3 Primary & Cute Button Animations)
+   ========================================================================== */
+.btn-action-primary {
+  background-color: var(--accent-action);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 0.75rem 1.85rem;
+  border-radius: 9999px;
+  border: none;
+  box-shadow: var(--shadow-action);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.btn-action-primary:hover {
+  background-color: var(--accent-action-hover);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 28px -2px rgba(217, 79, 179, 0.52);
+}
+
+.btn-action-primary:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: 0 2px 10px rgba(217, 79, 179, 0.3);
+}
+
+/* Cute Interactive Prompt Bar Buttons (Image 1) */
+.btn-prompt-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid rgba(23, 21, 23, 0.08);
+  background: #FFFFFF;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.22s ease, 
+              border-color 0.22s ease, 
+              background 0.22s ease;
+}
+
+.btn-prompt-chip:hover {
+  transform: translateY(-2px) scale(1.06);
+  border-color: var(--accent-action);
+  box-shadow: 0 4px 14px rgba(217, 79, 179, 0.22);
+}
+
+.btn-prompt-chip:active {
+  transform: scale(0.94);
+}
+
+.btn-prompt-attach:hover .btn-chip-icon {
+  animation: iconWiggle 0.5s ease-in-out;
+}
+
+.btn-prompt-voice:hover .btn-chip-icon {
+  animation: iconPulse 0.5s ease-in-out;
+}
+
+.btn-prompt-voice.active {
+  background: #F8EAF2;
+  border-color: var(--accent-action);
+  color: var(--accent-action);
+  box-shadow: 0 0 14px 2px rgba(217, 79, 179, 0.35);
+  animation: activePulseRing 1.5s infinite;
+}
+
+@keyframes iconWiggle {
+  0%, 100% { transform: rotate(0); }
+  25%      { transform: rotate(-16deg) scale(1.2); }
+  75%      { transform: rotate(16deg) scale(1.2); }
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.3); }
+}
+
+@keyframes activePulseRing {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217, 79, 179, 0.4); }
+  50%      { box-shadow: 0 0 0 6px rgba(217, 79, 179, 0); }
+}
+
+.btn-glass-pill {
+  background: var(--bg-surface);
+  backdrop-filter: blur(16px);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: 9999px;
+  border: var(--border-surface);
+  box-shadow: 0 4px 14px rgba(23, 21, 23, 0.04);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-glass-pill:hover {
+  border-color: var(--accent-action);
+  color: var(--accent-action);
+  transform: translateY(-1px);
+}
+
+/* State Trigger Pills under Orb */
+.orb-state-btn {
+  padding: 0.4rem 0.95rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--bg-raised);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.orb-state-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-action);
+  transform: translateY(-1px);
+}
+
+.orb-state-btn.active {
+  background: #FFFFFF;
+  color: var(--accent-action);
+  border-color: var(--accent-action);
+  box-shadow: 0 3px 12px rgba(217, 79, 179, 0.2);
+}
+
+/* ==========================================================================
+   FROSTED GLASS CARDS & BENTO GRID
+   ========================================================================== */
+.glass-card {
+  background: var(--bg-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: var(--border-surface);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-glass);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 45px -8px rgba(23, 21, 23, 0.08), 0 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+/* Problem & Solution Cards (Image 3 Inspiration) */
+.card-problem-warm {
+  background: var(--bg-surface);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(245, 158, 11, 0.3);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-glass);
+}
+
+.card-problem-warm::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, transparent 70%);
+  filter: blur(14px);
+  pointer-events: none;
+}
+
+.card-solution-emerald {
+  background: var(--bg-surface);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(16, 185, 129, 0.3);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-glass);
+}
+
+.card-solution-emerald::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%);
+  filter: blur(14px);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   TOP DYNAMIC NOTCH (Island Signature - Exact replica of Image 7)
+   ========================================================================== */
+.dynamic-notch-wrapper {
+  position: fixed;
+  top: 78px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .dynamic-notch-wrapper {
+    top: 72px;
+  }
+}
+
+.dynamic-notch {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1.5px solid var(--accent-action);
+  border-radius: 20px;
+  padding: 6px 14px 6px 10px;
+  box-shadow: 0 8px 28px -4px rgba(217, 79, 179, 0.28), 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  min-height: 46px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  text-decoration: none;
+}
+
+.dynamic-notch:hover {
+  box-shadow: 0 12px 36px -4px rgba(217, 79, 179, 0.42);
+  transform: scale(1.03);
+}
+
+.dynamic-notch:active {
+  transform: scale(0.97);
+}
+
+.notch-avatar-orb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #272935 0%, #090A0F 60%, #020308 100%);
+  border: 1px solid rgba(111, 232, 206, 0.7);
+  box-shadow: 0 0 10px 2px rgba(111, 232, 206, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.notch-avatar-orb .notch-eyes {
+  display: flex;
+  gap: 4.5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.notch-avatar-orb .notch-eye {
+  width: 3.6px;
+  height: 8px;
+  background: #FFFFFF;
+  border-radius: 9999px;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  transition: height 0.15s cubic-bezier(0.16, 1, 0.3, 1), transform 0.15s ease;
+  transform-origin: center;
+  flex-shrink: 0;
+}
+
+/* Alert & Cute Asymmetric Tilt: Left eye 2deg, Right eye -13deg with distinct clean gap */
+.notch-eyes > :first-child,
+.ackremen-logo-eyes > :first-child {
+  transform: rotate(2deg);
+}
+
+.notch-eyes > :last-child,
+.ackremen-logo-eyes > :last-child {
+  transform: rotate(-13deg);
+}
+
+.notch-avatar-orb.blinking .notch-eye {
+  height: 2px !important;
+}
+
+.notch-action-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(40, 127, 115, 0.10);
+  border: 1px solid rgba(40, 127, 115, 0.30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #287F73;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.dynamic-notch:hover .notch-action-btn {
+  background: var(--accent-action);
+  border-color: var(--accent-action);
+  color: #FFFFFF;
+  transform: scale(1.08);
+}
+
+/* ==========================================================================
+   TITLE BAR ACKREMEN AVATAR LOGO (Not 'A') - BIG, CUTE & CLEAR GAP
+   ========================================================================== */
+.ackremen-logo-blob {
+  width: 32px;
+  height: 32px;
+  border-radius: 35%;
+  background: #111317;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 12px 2px rgba(217, 79, 179, 0.45);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.ackremen-logo-blob:hover {
+  transform: scale(1.08);
+}
+
+.ackremen-logo-eyes {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.ackremen-logo-eye {
+  width: 4.2px;
+  height: 9.2px;
+  background: #FFFFFF;
+  border-radius: 9999px;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  transition: height 0.15s cubic-bezier(0.16, 1, 0.3, 1), transform 0.15s ease;
+  transform-origin: center;
+  flex-shrink: 0;
+}
+
+.ackremen-logo-blob.blinking .ackremen-logo-eye {
+  height: 2.2px !important;
+}
+
+/* Large Contact Avatar on Left Side (140px x 140px) */
+.contact-avatar-blob {
+  width: 140px;
+  height: 140px;
+  border-radius: 35%;
+  background: #111317;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 45px 8px rgba(217, 79, 179, 0.38);
+  margin: 0 auto;
+}
+
+.contact-avatar-blob .ackremen-logo-eyes {
+  gap: 24px;
+}
+
+.contact-avatar-blob .ackremen-logo-eye {
+  width: 17px;
+  height: 38px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.85);
+}
+
+.contact-avatar-blob.blinking .ackremen-logo-eye {
+  height: 5px !important;
+}
+
+/* ==========================================================================
+   HERO ORBITAL RINGS & CANVAS STAGE (Image 5 replica)
+   ========================================================================== */
+.hero-orb-stage {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .hero-orb-stage {
+    width: 380px;
+    height: 380px;
+  }
+}
+
+.ring-dashed {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ring-dashed-1 {
+  width: 240px;
+  height: 240px;
+  border: 1px dashed rgba(217, 79, 179, 0.28);
+  animation: orbitSpin 45s linear infinite;
+}
+
+.ring-dashed-2 {
+  width: 330px;
+  height: 330px;
+  border: 1px solid rgba(117, 166, 216, 0.22);
+  animation: orbitSpinRev 65s linear infinite;
+}
+
+.ring-dashed-3 {
+  width: 410px;
+  height: 410px;
+  border: 1px dashed rgba(40, 127, 115, 0.25);
+  animation: orbitSpin 80s linear infinite;
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbitSpinRev {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* ==========================================================================
+   HERO ORBITAL RINGS & PLANETARY AGENT REVOLUTION (Image 5 replica)
+   ========================================================================== */
+.orbit-rotator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.orbit-rotator-cw {
+  animation: orbitTrackSpin 60s linear infinite;
+}
+
+.orbit-rotator-ccw {
+  animation: orbitTrackSpinRev 75s linear infinite;
+}
+
+.orbit-node-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Orbiting Agent Dots - locked to radial orbital planes */
+.orbiting-agent-avatar {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1.5px solid var(--accent-action);
+  box-shadow: 0 4px 14px rgba(217, 79, 179, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent-action);
+  pointer-events: auto;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.25s ease;
+  user-select: none;
+}
+
+.orbiting-agent-avatar:hover {
+  transform: scale(1.32);
+  background: #F8EAF2;
+  box-shadow: 0 0 20px 4px rgba(217, 79, 179, 0.7);
+  z-index: 25;
+}
+
+@keyframes orbitTrackSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbitTrackSpinRev {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+/* Canvas Orb Center */
+#leviOrganicCanvas {
+  display: block;
+  z-index: 5;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   SERPENTINE PROCESS (Image 2 replica)
+   ========================================================================== */
+.serpentine-path-wrap {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 1.5rem 0;
+}
+
+.serpentine-svg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.milestone-glass-card {
+  position: relative;
+  z-index: 2;
+  background: var(--bg-surface);
+  backdrop-filter: blur(16px);
+  border: var(--border-surface);
+  border-radius: 1.25rem;
+  padding: 1.4rem 1.6rem;
+  box-shadow: var(--shadow-glass);
+  cursor: pointer;
+  user-select: none;
+  transform-origin: center center;
+  transition: border-color 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background 0.3s ease;
+  will-change: transform;
+}
+
+/* User requirement: selected box will NOT shake, size increases with scrolling */
+.milestone-glass-card:hover {
+  border-color: var(--accent-action);
+  box-shadow: 0 12px 32px -4px rgba(217, 79, 179, 0.28);
+}
+
+.milestone-glass-card.active-milestone {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 2px solid var(--accent-action) !important;
+  box-shadow: 0 16px 42px -4px rgba(217, 79, 179, 0.38), 0 0 0 2px rgba(217, 79, 179, 0.25) !important;
+  z-index: 10;
+}
+
+.milestone-glass-card.milestone-reached {
+  border-color: rgba(217, 79, 179, 0.55);
+}
+
+.signal-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  background: #F8EAF2;
+  color: var(--accent-action);
+  border: 1px solid rgba(217, 79, 179, 0.4);
+  transition: all 0.25s ease;
+}
+
+/* Active Electric Dash animation on bright path - slow, smooth, elegant */
+#serpentineActivePath {
+  animation: activeSignalPulse 4.5s linear infinite;
+}
+
+#signalPacket {
+  transition: r 0.25s ease;
+  filter: drop-shadow(0 0 10px rgba(217, 79, 179, 0.95));
+}
+
+@keyframes activeSignalPulse {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -28; }
+}
+
+/* ==========================================================================
+   USER FLOW TREE (Image 4 replica)
+   ========================================================================== */
+.flow-node-glass {
+  background: var(--bg-surface);
+  backdrop-filter: blur(16px);
+  border: var(--border-surface);
+  border-radius: 9999px;
+  padding: 0.55rem 1.3rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  box-shadow: 0 2px 10px rgba(23, 21, 23, 0.03);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.flow-node-glass:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--accent-action);
+  color: var(--accent-action);
+  box-shadow: 0 6px 18px rgba(217, 79, 179, 0.2);
+}
+
+/* Final node from Image 4: Continue or Close app */
+.flow-node-final {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(217, 79, 179, 0.6);
+  border-radius: 9999px;
+  padding: 0.65rem 1.4rem;
+  box-shadow: 0 4px 18px rgba(217, 79, 179, 0.18);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.flow-node-final:hover {
+  transform: translateY(-2px) scale(1.06);
+  border-color: var(--accent-action);
+  box-shadow: 0 8px 26px rgba(217, 79, 179, 0.35);
+}
+
+/* ==========================================================================
+   MINIMAL CONTACT / FEEDBACK FORM
+   ========================================================================== */
+.contact-input-field {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid rgba(23, 21, 23, 0.12);
+  border-radius: 0.875rem;
+  padding: 0.75rem 1.15rem;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  outline: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.contact-input-field:focus {
+  border-color: var(--accent-action);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(217, 79, 179, 0.15);
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D5CEDA;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-action);
+}
+
+/* ==========================================================================
+   CUTE ANIMATIONS — Page-wide motion system
+   ========================================================================== */
+
+/* ── Keyframe Library ──────────────────────────────────────────────────── */
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideLeft {
+  from { opacity: 0; transform: translateX(36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeSlideRight {
+  from { opacity: 0; transform: translateX(-36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.72); }
+  70%  { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes floatBob {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-9px); }
+}
+
+@keyframes floatBobSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-6px) rotate(1.5deg); }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217, 79, 179, 0); }
+  50%       { box-shadow: 0 0 0 10px rgba(217, 79, 179, 0.1); }
+}
+
+@keyframes shimmerSlide {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes orbPop {
+  0%   { opacity: 0; transform: scale(0) rotate(-15deg); }
+  60%  { opacity: 1; transform: scale(1.1) rotate(4deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes tagBounceIn {
+  0%   { opacity: 0; transform: scale(0.5) rotate(-6deg); }
+  65%  { opacity: 1; transform: scale(1.08) rotate(2deg); }
+  85%  { transform: scale(0.97) rotate(-0.5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes notchEntrance {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(-18px) scale(0.88); }
+  60%  { transform: translateX(-50%) translateY(4px) scale(1.03); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+@keyframes milestoneWobble {
+  0%, 100% { transform: rotate(0deg) translateY(0px); }
+  25%       { transform: rotate(-1.5deg) translateY(-3px); }
+  75%       { transform: rotate(1.5deg) translateY(-3px); }
+}
+
+@keyframes cardFlickerIn {
+  0%   { opacity: 0; transform: scale(0.9) translateY(20px); }
+  50%  { opacity: 0.9; transform: scale(1.02) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes glowPulseGreen {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(35, 122, 99, 0); }
+  50%       { box-shadow: 0 0 24px 6px rgba(35, 122, 99, 0.2); }
+}
+
+@keyframes backgroundDrift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes typewriterCaret {
+  0%, 100% { border-right-color: var(--accent-action); }
+  50%       { border-right-color: transparent; }
+}
+
+@keyframes ringPop {
+  0%   { opacity: 0; transform: scale(0.4); }
+  70%  { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes contactBlobFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); box-shadow: 0 0 45px 8px rgba(217, 79, 179, 0.38); }
+  40%       { transform: translateY(-10px) rotate(-2deg); box-shadow: 0 20px 55px 10px rgba(217, 79, 179, 0.5); }
+  70%       { transform: translateY(-6px) rotate(1.5deg); box-shadow: 0 15px 50px 9px rgba(217, 79, 179, 0.44); }
+}
+
+@keyframes tagFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-5px) scale(1.03); }
+}
+
+@keyframes downloadBtnPulse {
+  0%, 100% { box-shadow: 0 8px 24px -2px rgba(217, 79, 179, 0.35); }
+  50%       { box-shadow: 0 8px 36px 4px rgba(217, 79, 179, 0.6); }
+}
+
+/* ── Scroll-Reveal base state ──────────────────────────────────────────── */
+.anim-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.anim-reveal.from-left  { transform: translateX(-36px); }
+.anim-reveal.from-right { transform: translateX(36px); }
+.anim-reveal.pop        { transform: scale(0.82); }
+
+.anim-reveal.visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* staggered children */
+.anim-stagger > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.anim-stagger.visible > * {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.anim-stagger.visible > *:nth-child(1)  { transition-delay: 0.04s; }
+.anim-stagger.visible > *:nth-child(2)  { transition-delay: 0.08s; }
+.anim-stagger.visible > *:nth-child(3)  { transition-delay: 0.12s; }
+.anim-stagger.visible > *:nth-child(4)  { transition-delay: 0.16s; }
+.anim-stagger.visible > *:nth-child(5)  { transition-delay: 0.20s; }
+.anim-stagger.visible > *:nth-child(6)  { transition-delay: 0.24s; }
+.anim-stagger.visible > *:nth-child(7)  { transition-delay: 0.28s; }
+.anim-stagger.visible > *:nth-child(8)  { transition-delay: 0.32s; }
+.anim-stagger.visible > *:nth-child(9)  { transition-delay: 0.36s; }
+.anim-stagger.visible > *:nth-child(10) { transition-delay: 0.40s; }
+.anim-stagger.visible > *:nth-child(11) { transition-delay: 0.44s; }
+.anim-stagger.visible > *:nth-child(12) { transition-delay: 0.48s; }
+
+/* Core Pillar Cards (Image 4) - Cute Interactive Hover */
+.pillar-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s ease, 
+              border-color 0.3s ease;
+  cursor: pointer;
+}
+.pillar-card:hover {
+  transform: translateY(-5px) scale(1.015);
+  border-color: rgba(217, 79, 179, 0.5);
+  box-shadow: 0 16px 36px -4px rgba(217, 79, 179, 0.22);
+}
+.pillar-card:hover .pillar-icon-box {
+  transform: translateY(-3px) scale(1.18) rotate(6deg);
+  box-shadow: 0 6px 18px rgba(217, 79, 179, 0.35);
+}
+.pillar-icon-box {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+}
+
+/* ── Always-on ambient animations ─────────────────────────────────────── */
+
+/* Notch entrance */
+.dynamic-notch-wrapper {
+  animation: notchEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+/* Hero title tag */
+.orchid-tag {
+  animation: tagBounceIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+/* Hero canvas orb */
+#leviOrganicCanvas {
+  animation: orbPop 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+/* Orbital rings staggered */
+.ring-dashed-1 { animation: orbitSpin 45s linear infinite, ringPop 0.9s cubic-bezier(0.16,1,0.3,1) 0.6s both; }
+.ring-dashed-2 { animation: orbitSpinRev 65s linear infinite, ringPop 0.9s cubic-bezier(0.16,1,0.3,1) 0.75s both; }
+.ring-dashed-3 { animation: orbitSpin 80s linear infinite, ringPop 0.9s cubic-bezier(0.16,1,0.3,1) 0.9s both; }
+
+/* Notch gentle pulse */
+.dynamic-notch {
+  animation: gentlePulse 3.5s ease-in-out infinite 1.2s;
+}
+
+/* CTA button heartbeat */
+.btn-action-primary {
+  animation: downloadBtnPulse 3s ease-in-out infinite;
+}
+
+/* Contact avatar floating */
+.contact-avatar-blob {
+  animation: contactBlobFloat 5s ease-in-out infinite;
+}
+
+/* Glass cards hover glow upgrade */
+.glass-card:hover {
+  box-shadow: 0 20px 50px -8px rgba(217, 79, 179, 0.18), 0 0 1px 1px rgba(255, 255, 255, 0.9);
+  transform: translateY(-4px);
+}
+
+/* Milestone card smooth hover scale (No shaking!) */
+.milestone-glass-card:hover {
+  transform: scale(1.028);
+  border-color: var(--accent-action);
+  box-shadow: 0 10px 30px -4px rgba(217, 79, 179, 0.25);
+}
+
+/* Flow nodes pop */
+.flow-node-glass:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--accent-action);
+}
+
+/* State trigger pills bounce */
+.orb-state-btn:hover {
+  transform: translateY(-2px) scale(1.07);
+}
+
+/* Orchid tag continuous subtle float on hero */
+h1 .orchid-tag {
+  animation: tagFloat 4s ease-in-out infinite 1.2s;
+}
+
+/* Problem/solution cards shimmer top glow on hover */
+.card-problem-warm:hover,
+.card-solution-emerald:hover {
+  transform: translateY(-3px) scale(1.01);
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* Ackremen logo bob on header */
+header .ackremen-logo-blob {
+  animation: floatBobSlow 5s ease-in-out infinite;
+}
+
+/* Download section logo glow pulse */
+#download .ackremen-logo-blob {
+  animation: glowPulseGreen 2.8s ease-in-out infinite;
+}
+
+/* Input field focus sparkle */
+.contact-input-field:focus {
+  border-color: var(--accent-action);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(217, 79, 179, 0.15), 0 2px 12px rgba(217, 79, 179, 0.1);
+  transform: scale(1.005);
+}
