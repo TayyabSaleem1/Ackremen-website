@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACKREMEN · Context-Aware Multi-Agent System</title>
+  <meta name="description" content="ACKREMEN is an offline-first, context-aware multi-agent Windows desktop assistant designed to understand your voice, remember your workflows, and execute computer actions seamlessly." />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            orchid: {
+              DEFAULT: '#D94FB3',
+              hover: '#E56BC2',
+              tint: '#F8EAF2'
+            },
+            teal: {
+              DEFAULT: '#287F73',
+              mint: '#6FE8CE'
+            },
+            carbon: '#171517'
+          },
+          fontFamily: {
+            sans: ['"Segoe UI Variable"', '"Segoe UI"', '-apple-system', 'BlinkMacSystemFont', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'Consolas', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="relative min-h-screen text-[#171517]">
+
+  <!-- Warm Ambient Canvas Background -->
+  <div class="ambient-canvas"></div>
+
+  <!-- =========================================================================
+       SIGNATURE TOP-CENTRE LEVI DYNAMIC NOTCH (Exact Image 7 Replica)
+       Positioned below the title bar, stays fixed on scroll, clicking goes to #download
+       ========================================================================= -->
+  <div class="dynamic-notch-wrapper">
+    <a href="#download" id="dynamicNotch" class="dynamic-notch group" title="Click notch to download ACKREMEN">
+      <!-- Mini Levi Avatar matching Image 7 -->
+      <div id="notchOrbAvatar" class="notch-avatar-orb">
+        <div class="notch-eyes">
+          <div class="notch-eye"></div>
+          <div class="notch-eye"></div>
+        </div>
+      </div>
+
+      <!-- State & Identity (Two-line Layout from Image 7) -->
+      <div class="flex flex-col text-left leading-none gap-0.5">
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs font-bold tracking-tight text-[#171517] uppercase">LEVI</span>
+          <!-- Verified Checkmark Badge -->
+          <svg class="w-3.5 h-3.5 text-[#237A63]" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <span id="notchStatusLabel" class="text-[11px] font-semibold text-[#287F73]">
+          Ready
+        </span>
+      </div>
+
+      <!-- Action Button Squircle matching Image 7 with hover download icon -->
+      <div class="notch-action-btn ml-1" title="Download ACKREMEN">
+        <svg class="w-3.5 h-3.5 group-hover:hidden" viewBox="0 0 20 20" fill="currentColor">
+          <circle cx="10" cy="10" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <svg class="w-3.5 h-3.5 hidden group-hover:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+    </a>
+  </div>
+
+  <!-- =========================================================================
+       1. NAVIGATION (Title Bar with ACKREMEN Avatar Logo, No Sign-in)
+       ========================================================================= -->
+  <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/70 border-b border-white/60 transition-all">
+    <div class="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between py-4">
+      
+      <!-- Logo: ACKREMEN Avatar Blob (Not 'A') -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="ackremen-logo-blob">
+          <div class="ackremen-logo-eyes">
+            <div class="ackremen-logo-eye"></div>
+            <div class="ackremen-logo-eye"></div>
+          </div>
+        </div>
+        <span class="text-sm font-extrabold tracking-tight text-[#171517]">ACKREMEN</span>
+      </a>
+
+      <!-- Minimal Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-xs font-semibold text-[#625D60]">
+        <a href="#overview" class="hover:text-[#D94FB3] transition-colors">Overview</a>
+        <a href="#pillars" class="hover:text-[#D94FB3] transition-colors">Pillars</a>
+        <a href="#challenges" class="hover:text-[#D94FB3] transition-colors">Challenges</a>
+        <a href="#process" class="hover:text-[#D94FB3] transition-colors">Process</a>
+        <a href="#flow" class="hover:text-[#D94FB3] transition-colors">Flow</a>
+        <a href="#feedback" class="hover:text-[#D94FB3] transition-colors">Feedback</a>
+      </nav>
+
+      <!-- Right Action: Download Button in Cyber-Orchid (Takes to Download Screen) -->
+      <div class="flex items-center gap-3">
+        <a href="#download" id="headerDownloadBtn" class="btn-action-primary text-xs py-2 px-5">
+          <span>Download</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       2. HERO SECTION (Matching Image 5 Desktop Monitor Mockup)
+       ========================================================================= -->
+  <section id="overview" class="relative pt-24 pb-20 md:pt-28 md:pb-28">
+    <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+
+      <!-- Headline with Signature Pink Box Tag (Image 5 replica) -->
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#171517] mb-6 leading-[1.08] anim-reveal" style="animation: fadeSlideDown 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both;">
+        <span class="orchid-tag">
+          ACKREMEN
+          <span class="orchid-tag-ticks"></span>
+        </span><br class="hidden sm:block" />
+        Smart AI Assistant with Advanced Context System
+      </h1>
+
+      <!-- Supporting Subhead (No tech jargon!) -->
+      <p class="max-w-2xl mx-auto text-base sm:text-lg text-[#625D60] mb-10 leading-relaxed font-normal anim-reveal" style="animation: fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.28s both; opacity:1; transform:none;">
+        Analyze active computer context, coordinate specialist agents, and interact naturally with voice and text effortlessly—completely on your Windows PC.
+      </p>
+
+      <!-- Clean CTA: Start Free links directly to #download (No Voice Demo!) -->
+      <div class="flex items-center justify-center gap-4 mb-12 anim-stagger" style="animation: fadeSlideUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.45s both; opacity:1;">
+        <a href="#download" class="btn-action-primary text-sm py-3.5 px-8">
+          Start Free
+        </a>
+        <a href="#pillars" class="btn-glass-pill text-sm py-3.5 px-7">
+          Explore System Pillars →
+        </a>
+      </div>
+
+      <!-- =====================================================================
+           THE LEVI ORGANIC AVATAR ORB WITH STATE MORPHING (Exact Spec!)
+           ===================================================================== -->
+      <div class="relative max-w-xl mx-auto my-6">
+        
+        <div class="hero-orb-stage">
+          <!-- Orbital Concentric Dashed Rings (Image 5 replica) -->
+          <div class="ring-dashed ring-dashed-1"></div>
+          <div class="ring-dashed ring-dashed-2"></div>
+          <div class="ring-dashed ring-dashed-3"></div>
+
+          <!-- Orbit Track 1 (Radius 120px - Inner Planetary Ring) -->
+          <div class="orbit-rotator orbit-rotator-cw">
+            <div class="orbit-node-wrapper" style="transform: rotate(30deg) translate(120px) rotate(-30deg);">
+              <div class="orbiting-agent-avatar" title="Perception Specialist Agent">P</div>
+            </div>
+            <div class="orbit-node-wrapper" style="transform: rotate(150deg) translate(120px) rotate(-150deg);">
+              <div class="orbiting-agent-avatar" title="Memory Specialist Agent">M</div>
+            </div>
+            <div class="orbit-node-wrapper" style="transform: rotate(270deg) translate(120px) rotate(-270deg);">
+              <div class="orbiting-agent-avatar" title="Planning Specialist Agent">PL</div>
+            </div>
+          </div>
+
+          <!-- Orbit Track 2 (Radius 165px - Outer Planetary Ring) -->
+          <div class="orbit-rotator orbit-rotator-ccw">
+            <div class="orbit-node-wrapper" style="transform: rotate(85deg) translate(165px) rotate(-85deg);">
+              <div class="orbiting-agent-avatar" title="Safety Guardrail Agent">S</div>
+            </div>
+            <div class="orbit-node-wrapper" style="transform: rotate(215deg) translate(165px) rotate(-215deg);">
+              <div class="orbiting-agent-avatar" title="Execution Specialist Agent">E</div>
+            </div>
+          </div>
+
+          <!-- Organic Bio-Mechanical Levi Canvas Core -->
+          <canvas id="leviOrganicCanvas" width="220" height="220" title="Click Levi to test autonomous morphing"></canvas>
+        </div>
+
+        <!-- State Trigger Pills under Orb: Test all real-time animations! -->
+        <div class="mt-4 flex items-center justify-center gap-2 flex-wrap max-w-lg mx-auto">
+          <button class="orb-state-btn active" data-state="ready">
+            <span class="w-2 h-2 rounded-full bg-[#6FE8CE]"></span>
+            <span>Ready</span>
+          </button>
+          <button class="orb-state-btn" data-state="listening">
+            <span class="w-2 h-2 rounded-full bg-[#68C7FF]"></span>
+            <span>Listening</span>
+          </button>
+          <button class="orb-state-btn" data-state="thinking">
+            <span class="w-2 h-2 rounded-full bg-[#D47AFF]"></span>
+            <span>Thinking</span>
+          </button>
+          <button class="orb-state-btn" data-state="processing">
+            <span class="w-2 h-2 rounded-full bg-[#FFA85C]"></span>
+            <span>Processing</span>
+          </button>
+          <button class="orb-state-btn" data-state="speaking">
+            <span class="w-2 h-2 rounded-full bg-[#66F0B3]"></span>
+            <span>Speaking</span>
+          </button>
+          <button class="orb-state-btn" data-state="waiting">
+            <span class="w-2 h-2 rounded-full bg-[#FFD467]"></span>
+            <span>Waiting</span>
+          </button>
+          <button class="orb-state-btn" data-state="offline">
+            <span class="w-2 h-2 rounded-full bg-[#FF647C]"></span>
+            <span>Offline</span>
+          </button>
+        </div>
+
+        <!-- Floating Prompt Bar (Image 5 replica) -->
+        <div class="mt-8 max-w-lg mx-auto bg-white/85 backdrop-blur-xl p-3.5 rounded-2xl border border-white/80 shadow-lg text-left">
+          <div class="flex items-center gap-2 mb-2 px-2">
+            <input id="promptInput" type="text" placeholder="Ask me anything..." class="w-full bg-transparent text-xs sm:text-sm text-[#171517] placeholder-[#6F686C] outline-none font-medium" value="Levi, prepare my study workspace and open my project report." />
+            <button id="sendPromptBtn" class="btn-action-primary py-1.5 px-4 text-xs shrink-0">
+              Send
+            </button>
+          </div>
+          
+          <!-- Chips: Attach, Voice (Deep Think removed) with Cute Micro-Animations -->
+          <div class="flex items-center justify-between pt-2.5 border-t border-[#171517]/05 px-1 flex-wrap gap-2 text-xs">
+            <div class="flex items-center gap-2 flex-wrap">
+              <button id="btnAttach" type="button" class="btn-prompt-chip btn-prompt-attach" title="Attach documents or project files">
+                <span class="btn-chip-icon inline-block">📎</span>
+                <span class="font-semibold text-[#D94FB3]">Attach</span>
+              </button>
+              <button id="btnVoice" type="button" class="btn-prompt-chip btn-prompt-voice" title="Start real-time voice mode">
+                <span class="btn-chip-icon inline-block">🎙</span>
+                <span id="btnVoiceLabel" class="font-semibold text-[#625D60]">Voice</span>
+              </button>
+            </div>
+            <span class="text-[11px] font-mono text-[#237A63] font-semibold flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#237A63] animate-pulse"></span>
+              Offline First
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       3. CORE PILLARS (Bento Grid of Frosted Glass Cards - No Tech Jargon!)
+       ========================================================================= -->
+  <section id="pillars" class="py-24 relative z-10 border-t border-white/60">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      
+      <div class="max-w-2xl mx-auto mb-16 anim-reveal">
+        <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-[#171517] leading-tight">
+          Core Pillars of <span class="text-[#D94FB3]">ACKREMEN</span>
+        </h2>
+        <p class="text-sm sm:text-base text-[#625D60] mt-3 leading-relaxed">
+          Designed from the ground up for privacy, continuity, and effortless Windows computer control.
+        </p>
+      </div>
+
+      <!-- Bento Grid (4 Frosted Glass Cards - Cute Interactive Micro-Hover) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left anim-stagger">
+        
+        <!-- Pillar 1: Offline First & Private -->
+        <div class="glass-card pillar-card">
+          <div class="pillar-icon-box w-10 h-10 rounded-xl bg-[#F8EAF2] text-[#D94FB3] flex items-center justify-center font-bold text-lg mb-4">
+            🔒
+          </div>
+          <h3 class="text-xl font-bold text-[#171517] mb-2">Offline First &amp; Private</h3>
+          <p class="text-sm text-[#625D60] leading-relaxed">
+            Total data sovereignty. Your voice, active window contexts, and document contents remain strictly on your physical machine. Zero cloud telemetry, zero recurring subscriptions, and zero data leakage.
+          </p>
+          <div class="mt-4 pt-3 border-t border-white/60 text-xs font-mono text-[#237A63] font-semibold">
+            ✓ Airgapped Local Protection
+          </div>
+        </div>
+
+        <!-- Pillar 2: Cognitive Continuity Memory -->
+        <div class="glass-card pillar-card">
+          <div class="pillar-icon-box w-10 h-10 rounded-xl bg-[#EDF5FA] text-[#75A6D8] flex items-center justify-center font-bold text-lg mb-4">
+            🧠
+          </div>
+          <h3 class="text-xl font-bold text-[#171517] mb-2">Cognitive Continuity Memory</h3>
+          <p class="text-sm text-[#625D60] leading-relaxed">
+            Never start from scratch again. ACKREMEN seamlessly remembers your active projects, past conversation threads, and personal guidelines, continuing discussions without repetitive prompting.
+          </p>
+          <div class="mt-4 pt-3 border-t border-white/60 text-xs font-mono text-[#75A6D8] font-semibold">
+            ✓ Persistent Conversational State
+          </div>
+        </div>
+
+        <!-- Pillar 3: Proactive Assistant Engine -->
+        <div class="glass-card pillar-card">
+          <div class="pillar-icon-box w-10 h-10 rounded-xl bg-[#F8EAF2] text-[#D94FB3] flex items-center justify-center font-bold text-lg mb-4">
+            ⚡
+          </div>
+          <h3 class="text-xl font-bold text-[#171517] mb-2">Proactive Assistant Engine</h3>
+          <p class="text-sm text-[#625D60] leading-relaxed">
+            Anticipates your routine desktop activities before you ask. Restores multi-window study layouts, organizes project notes, and optimizes workspace setups with a single voice command.
+          </p>
+          <div class="mt-4 pt-3 border-t border-white/60 text-xs font-mono text-[#D94FB3] font-semibold">
+            ✓ Adaptive Routine Automation
+          </div>
+        </div>
+
+        <!-- Pillar 4: Deep Windows Orchestration -->
+        <div class="glass-card pillar-card">
+          <div class="pillar-icon-box w-10 h-10 rounded-xl bg-[#EDF5FA] text-[#287F73] flex items-center justify-center font-bold text-lg mb-4">
+            💻
+          </div>
+          <h3 class="text-xl font-bold text-[#171517] mb-2">Deep Windows Orchestration</h3>
+          <p class="text-sm text-[#625D60] leading-relaxed">
+            Specialist agents safely interact with your desktop apps, open documents, manage window split layouts, and perform validated system actions without clumsy clicking bots.
+          </p>
+          <div class="mt-4 pt-3 border-t border-white/60 text-xs font-mono text-[#287F73] font-semibold">
+            ✓ Native Windows 11 Integration
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       4. IDENTIFYING USER CHALLENGES & DESIGNING CLEAR SOLUTIONS (Image 3 replica)
+       ========================================================================= -->
+  <section id="challenges" class="py-24 relative z-10 border-t border-white/60">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="max-w-2xl mb-16 text-left anim-reveal">
+        <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-[#171517] leading-tight">
+          <span class="orchid-tag">
+            IDENTIFYING
+            <span class="orchid-tag-ticks"></span>
+          </span><br/>
+          USER CHALLENGES &amp; DESIGNING CLEAR AI INTERACTIONS.
+        </h2>
+        <p class="text-sm sm:text-base text-[#625D60] mt-4 leading-relaxed">
+          Understanding user challenges and designing clear solutions to create a simple, intuitive, and seamless AI assistant interaction experience.
+        </p>
+      </div>
+
+      <!-- 2-Column Showcase (Image 3 layout) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <!-- Left: Tablet Interface Mockup (Image 3 replica) -->
+        <div class="lg:col-span-5 anim-reveal from-left">
+          <div class="rounded-3xl p-3.5 bg-[#171517] shadow-2xl border-2 border-slate-700/50 text-left">
+            <div class="w-2.5 h-2.5 rounded-full bg-slate-700 mx-auto mb-3"></div>
+            
+            <div class="bg-gradient-to-b from-white to-[#F8EAF2]/40 rounded-2xl p-5 border border-slate-200/80 min-h-[350px] flex flex-col justify-between">
+              <!-- Top bar -->
+              <div class="flex items-center justify-between pb-3 border-b border-[#171517]/10">
+                <div class="flex items-center gap-2">
+                  <div class="ackremen-logo-blob" style="width: 24px; height: 24px;">
+                    <div class="ackremen-logo-eyes" style="gap: 4px;">
+                      <div class="ackremen-logo-eye" style="width: 3.4px; height: 7.2px;"></div>
+                      <div class="ackremen-logo-eye" style="width: 3.4px; height: 7.2px;"></div>
+                    </div>
+                  </div>
+                  <span class="text-xs font-bold text-[#171517]">LEVI Assistant</span>
+                </div>
+                <span class="text-[10px] font-mono text-[#237A63] font-semibold">Active</span>
+              </div>
+
+              <!-- Center Graphic -->
+              <div class="my-6 text-center">
+                <div class="w-16 h-16 rounded-full mx-auto mb-3 bg-[#111317] border border-[#D94FB3] shadow-[0_0_15px_rgba(217,79,179,0.45)] flex items-center justify-center">
+                  <div class="ackremen-logo-eyes" style="gap: 10px;">
+                    <div class="ackremen-logo-eye" style="width: 8.5px; height: 18px;"></div>
+                    <div class="ackremen-logo-eye" style="width: 8.5px; height: 18px;"></div>
+                  </div>
+                </div>
+                <div class="text-xs font-bold text-[#171517]">AI Enables Smooth Assistant &amp; Voice Interaction</div>
+                <div class="text-[11px] text-[#6F686C] mt-1">Contextual Session Active</div>
+              </div>
+
+              <!-- Chips inside tablet -->
+              <div class="space-y-2">
+                <div class="flex items-center gap-1.5 overflow-x-auto text-[10px]">
+                  <span class="px-2 py-0.5 rounded-full bg-white border border-[#171517]/10 text-[#625D60]">Market Update</span>
+                  <span class="px-2 py-0.5 rounded-full bg-white border border-[#171517]/10 text-[#625D60]">Top Gainers</span>
+                  <span class="px-2 py-0.5 rounded-full bg-[#F8EAF2] text-[#D94FB3] font-semibold">My Portfolio</span>
+                </div>
+                <div class="p-2 rounded-xl bg-white border border-[#171517]/10 text-xs text-[#6F686C] flex items-center justify-between">
+                  <span>Ask me anything...</span>
+                  <span class="w-4 h-4 rounded-full bg-[#D94FB3] text-white flex items-center justify-center text-[8px]">🎙</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Problem & Solution Stacks (Image 3 replica) -->
+        <div class="lg:col-span-7 space-y-5 anim-stagger">
+          
+          <!-- Problem 01 Card (Yellow aura top-right) -->
+          <div class="card-problem-warm text-left">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-8 h-8 rounded-full bg-[#FEF8EC] text-[#F59E0B] flex items-center justify-center font-bold text-sm">
+                !
+              </div>
+              <span class="text-xs font-mono font-bold text-[#F59E0B]">01</span>
+            </div>
+            <h4 class="text-base font-bold text-[#171517] mb-1.5">Problem</h4>
+            <p class="text-xs text-[#625D60] leading-relaxed">
+              Complex AI interfaces often make conversations difficult, confusing users &amp; reducing clarity during interactions with assistants.
+            </p>
+          </div>
+
+          <!-- Solution 01 Card (Green aura top-right) -->
+          <div class="card-solution-emerald text-left">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-8 h-8 rounded-full bg-[#ECFDF5] text-[#10B981] flex items-center justify-center font-bold text-sm">
+                ✦
+              </div>
+              <span class="text-xs font-mono font-bold text-[#10B981]">01</span>
+            </div>
+            <h4 class="text-base font-bold text-[#171517] mb-1.5">Solution</h4>
+            <p class="text-xs text-[#625D60] leading-relaxed">
+              Design a clean conversational interface with simple navigation and a clear, intuitive interaction flow for seamless user experience.
+            </p>
+          </div>
+
+          <!-- Problem 02 Card -->
+          <div class="card-problem-warm text-left">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-8 h-8 rounded-full bg-[#FEF8EC] text-[#F59E0B] flex items-center justify-center font-bold text-sm">
+                !
+              </div>
+              <span class="text-xs font-mono font-bold text-[#F59E0B]">02</span>
+            </div>
+            <h4 class="text-base font-bold text-[#171517] mb-1.5">Problem</h4>
+            <p class="text-xs text-[#625D60] leading-relaxed">
+              Cloud-reliant assistants transmit confidential desktop windows, code, and documents to external third-party servers.
+            </p>
+          </div>
+
+          <!-- Solution 02 Card -->
+          <div class="card-solution-emerald text-left">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-8 h-8 rounded-full bg-[#ECFDF5] text-[#10B981] flex items-center justify-center font-bold text-sm">
+                ✦
+              </div>
+              <span class="text-xs font-mono font-bold text-[#10B981]">02</span>
+            </div>
+            <h4 class="text-base font-bold text-[#171517] mb-1.5">Solution</h4>
+            <p class="text-xs text-[#625D60] leading-relaxed">
+              100% offline local inference on Windows. Your vector memories and on-device models guarantee absolute data sovereignty.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. A USER CENTERED PROCESS FOR BUILDING AI INTERFACES (Image 2 replica)
+       ========================================================================= -->
+  <section id="process" class="py-24 relative z-10 border-t border-white/60">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      
+      <div class="max-w-2xl mx-auto mb-16 anim-reveal">
+        <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-[#171517] leading-tight">
+          A USER CENTERED
+          <span class="orchid-tag">
+            PROCESS
+            <span class="orchid-tag-ticks"></span>
+          </span><br/>
+          FOR BUILDING AI INTERFACES
+        </h2>
+        <p class="text-sm text-[#625D60] mt-4 leading-relaxed">
+          The structured 5-stage development methodology connecting human cognitive needs with seamless desktop assistant interactions.
+        </p>
+      </div>
+
+      <!-- Serpentine S-Curve Roadmap (Image 2 replica) -->
+      <div class="serpentine-path-wrap relative py-6">
+        
+        <!-- Dashed S-Path with Interactive Signal Line (Cyber-Orchid) -->
+        <svg id="serpentineSvg" class="serpentine-svg hidden md:block" viewBox="0 0 800 870" fill="none">
+          <defs>
+            <filter id="signalGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="3.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+
+            <!-- SVG Mask revealing active signal precisely up to current milestone -->
+            <mask id="signalMask">
+              <path id="signalMaskPath"
+                    d="M 400 40 C 550 40, 680 70, 650 130 C 600 210, 120 210, 150 290 C 180 370, 680 380, 650 460 C 620 540, 120 550, 150 630 C 180 710, 680 720, 650 800"
+                    stroke="#FFFFFF"
+                    stroke-width="16"
+                    fill="none"
+                    stroke-linecap="round" />
+            </mask>
+          </defs>
+
+          <!-- Inactive / Background subtle dashed track -->
+          <path id="serpentineBasePath"
+                d="M 400 40 C 550 40, 680 70, 650 130 C 600 210, 120 210, 150 290 C 180 370, 680 380, 650 460 C 620 540, 120 550, 150 630 C 180 710, 680 720, 650 800" 
+                stroke="rgba(217, 79, 179, 0.22)" 
+                stroke-width="2.5" 
+                stroke-dasharray="6 6" 
+                stroke-linecap="round" />
+
+          <!-- Active bright glowing signal path (masked up to selected milestone) -->
+          <path id="serpentineActivePath"
+                mask="url(#signalMask)"
+                d="M 400 40 C 550 40, 680 70, 650 130 C 600 210, 120 210, 150 290 C 180 370, 680 380, 650 460 C 620 540, 120 550, 150 630 C 180 710, 680 720, 650 800" 
+                stroke="#D94FB3" 
+                stroke-width="4.5" 
+                stroke-dasharray="8 6" 
+                stroke-linecap="round" 
+                filter="url(#signalGlow)" />
+
+          <!-- Signal Pulse Packet (particle glowing at the head of the signal) -->
+          <circle id="signalPacket" cx="650" cy="130" r="7" fill="#FFFFFF" stroke="#D94FB3" stroke-width="3" filter="url(#signalGlow)" />
+        </svg>
+
+        <div class="space-y-12 relative z-10 anim-stagger">
+
+          <!-- Milestone 1: RESEARCH -->
+          <div class="flex flex-col md:flex-row items-center justify-end">
+            <div class="w-full md:w-5/12 milestone-glass-card active-milestone text-left" data-milestone="1">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs">🔍</span>
+                  <h4 class="text-xs font-bold text-[#171517] uppercase tracking-wider">RESEARCH</h4>
+                </div>
+                <span class="signal-status-pill">● Active Signal</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5 text-[11px] text-[#625D60]">
+                <span class="px-2 py-0.5 rounded-full bg-white/80">User Interviews</span>
+                <span class="px-2 py-0.5 rounded-full bg-white/80">Competitor Analysis</span>
+                <span class="px-2 py-0.5 rounded-full bg-white/80">User Needs</span>
+                <span class="px-2 py-0.5 rounded-full bg-[#F8EAF2] text-[#D94FB3] font-semibold">AI Opportunities</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestone 2: USER FLOW -->
+          <div class="flex flex-col md:flex-row items-center justify-start">
+            <div class="w-full md:w-5/12 milestone-glass-card text-left" data-milestone="2">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs">⚡</span>
+                  <h4 class="text-xs font-bold text-[#171517] uppercase tracking-wider">USER FLOW</h4>
+                </div>
+                <span class="signal-status-pill" style="background:#F2EEF4; color:#625D60;">Step 02</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5 text-[11px] text-[#625D60]">
+                <span class="px-2 py-0.5 rounded-full bg-white/80">User Journey</span>
+                <span class="px-2 py-0.5 rounded-full bg-white/80">Task Flow</span>
+                <span class="px-2 py-0.5 rounded-full bg-[#F8EAF2] text-[#D94FB3] font-semibold">Voice Flow</span>
+                <span class="px-2 py-0.5 rounded-full bg-white/80">Chat Flow</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestone 3: WIREFRAMING -->
+          <div class="flex flex-col md:flex-row items-center justify-end">
+            <div class="w-full md:w-5/12 milestone-glass-card text-left" data-milestone="3">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs">📐</span>
+                  <h4 class="text-xs font-bold text-[#171517] uppercase tracking-wider">WIREFRAMING</h4>
+                </div>
+                <span class="signal-status-pill" style="background:#F2EEF4; color:#625D60;">Step 03</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5 text-[11px] text-[#625D60]">
+                <span class="px-2 py-0.5 rounded-full bg-[#F8EAF2] text-[#D94FB3] font-semibold">High-Fidelity Screens</span>
+                <span class="px-2 py-0.5 rounded-full bg-white/80">Layout Structure</span>
+                <span class="px-2 py-0.5 rounded-full bg-white/80">Interaction Blocks</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestone 4: UI DESIGN -->
+          <div class="flex flex-col md:flex-row items-center justify-start">
+            <div class="w-full md:w-5/12 milestone-glass-card text-left" data-milestone="4">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs">🎨</span>
+                  <h4 class="text-xs font-bold text-[#171517] uppercase tracking-wider">UI DESIGN</h4>
+                </div>
+                <span class="signal-status-pill" style="background:#F2EEF4; color:#625D60;">Step 04</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5 text-[11px] text-[#625D60]">
+                <span class="px-2 py-0.5 rounded-full bg-white/80">Visual Design</span>
+                <span class="px-2 py-0.5 rounded-full bg-[#F8EAF2] text-[#D94FB3] font-semibold">Color System</span>
+                <span class="px-2 py-0.5 rounded-full bg-white/80">Typography</span>
+                <span class="px-2 py-0.5 rounded-full bg-white/80">Components</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestone 5: TESTING -->
+          <div class="flex flex-col md:flex-row items-center justify-end">
+            <div class="w-full md:w-5/12 milestone-glass-card text-left" data-milestone="5">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs">🧪</span>
+                  <h4 class="text-xs font-bold text-[#171517] uppercase tracking-wider">TESTING</h4>
+                </div>
+                <span class="signal-status-pill" style="background:#F2EEF4; color:#625D60;">Step 05</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5 text-[11px] text-[#625D60]">
+                <span class="px-2 py-0.5 rounded-full bg-[#F8EAF2] text-[#D94FB3] font-semibold">Usability Testing</span>
+                <span class="px-2 py-0.5 rounded-full bg-white/80">Feedback</span>
+                <span class="px-2 py-0.5 rounded-full bg-white/80">Iterations</span>
+                <span class="px-2 py-0.5 rounded-full bg-[#ECFDF5] text-[#10B981] font-semibold">Performance</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. CLEAR FLOW GUIDING USER EXPERIENCE (Image 4 replica)
+       ========================================================================= -->
+  <section id="flow" class="py-24 relative z-10 border-t border-white/60">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      
+      <div class="max-w-2xl mx-auto mb-14 anim-reveal">
+        <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-[#171517] leading-tight">
+          CLEAR
+          <span class="orchid-tag">
+            FLOW
+            <span class="orchid-tag-ticks"></span>
+          </span><br/>
+          GUIDING USER EXPERIENCE
+        </h2>
+        <p class="text-sm text-[#625D60] mt-4 leading-relaxed">
+          A clear and structured flow ensures intuitive navigation, improving usability and creating a seamless user experience.
+        </p>
+      </div>
+
+      <!-- Horizontal Tree Diagram (Image 3 & 4 replica: Complete Working Demo Flow) -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-sm max-w-4xl mx-auto anim-reveal">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-5 relative">
+          
+          <!-- Root: Onboarding -->
+          <div class="flex items-center gap-3">
+            <div class="ackremen-logo-blob" style="width: 36px; height: 36px;">
+              <div class="ackremen-logo-eyes" style="gap: 6px;">
+                <div class="ackremen-logo-eye" style="width: 4.8px; height: 10px;"></div>
+                <div class="ackremen-logo-eye" style="width: 4.8px; height: 10px;"></div>
+              </div>
+            </div>
+            <div class="flow-node-glass font-bold">
+              <span>Onboarding</span>
+            </div>
+          </div>
+
+          <div class="hidden md:block text-[#6F686C]/40 text-xs">───►</div>
+
+          <!-- Branch 1: System Pairing -->
+          <div class="flex flex-col gap-2">
+            <span class="flow-node-glass text-xs font-semibold text-[#D94FB3]">Desktop Workspace</span>
+            <span class="flow-node-glass text-xs">Voice Pairing</span>
+            <span class="flow-node-glass text-xs text-[#6F686C]">Local Preferences</span>
+          </div>
+
+          <div class="hidden md:block text-[#6F686C]/40 text-xs">───►</div>
+
+          <!-- Home Screen Hub (Image 3 replica) -->
+          <div class="flow-node-glass font-bold bg-[#F8EAF2] border-[#D94FB3] text-[#D94FB3]">
+            <span>Home Screen</span>
+          </div>
+
+          <div class="hidden md:block text-[#6F686C]/40 text-xs">───►</div>
+
+          <!-- Branch 2: Features & Working Demo (Image 3 & 4 replica) -->
+          <div class="flex flex-col gap-2">
+            <span class="flow-node-glass text-xs" data-flow="chat">Chat History</span>
+            <span id="flowWorkingDemoNode" class="flow-node-glass text-xs font-bold text-[#D94FB3] bg-[#F8EAF2] border-[#D94FB3] shadow-sm relative group" data-flow="demo" title="Click to test live working demo">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#D94FB3] animate-ping inline-block mr-0.5"></span>
+              Working Demo (Start Chat)
+            </span>
+            <span class="flow-node-glass text-xs" data-flow="voice">Voice Assistant</span>
+            <span class="flow-node-glass text-xs" data-flow="settings">Settings</span>
+          </div>
+
+          <div class="hidden md:block text-[#6F686C]/40 text-xs">───►</div>
+
+          <!-- Final Node (Image 4 replica: Continue or Close app) -->
+          <div id="flowFinalNode" class="flow-node-final group" title="Session state is preserved automatically">
+            <span class="w-2 h-2 rounded-full bg-[#D94FB3] animate-ping"></span>
+            <span class="text-xs font-bold text-[#D94FB3]">Continue or Close app</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. DEDICATED DOWNLOAD SECTION
+       ========================================================================= -->
+  <section id="download" class="py-24 relative z-10 border-t border-white/60">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      
+      <div class="glass-card max-w-3xl mx-auto text-center p-8 sm:p-12 anim-reveal pop">
+        <div class="ackremen-logo-blob mx-auto mb-6" style="width: 54px; height: 54px; box-shadow: 0 0 24px rgba(217, 79, 179, 0.45);">
+          <div class="ackremen-logo-eyes" style="gap: 9px;">
+            <div class="ackremen-logo-eye" style="width: 7px; height: 15px;"></div>
+            <div class="ackremen-logo-eye" style="width: 7px; height: 15px;"></div>
+          </div>
+        </div>
+
+        <h2 class="text-3xl sm:text-4xl font-bold text-[#171517] tracking-tight mb-3">
+          Download ACKREMEN for Windows
+        </h2>
+        <p class="text-sm sm:text-base text-[#625D60] max-w-lg mx-auto mb-8 leading-relaxed">
+          The private, context-aware desktop assistant. Experience seamless voice interaction and offline intelligence directly on your PC.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+          <a href="https://drive.google.com/drive/folders/1F_GMn8kFu73U9raHQ3v3nK5oE8991MOb" target="_blank" rel="noopener noreferrer" id="mainDownloadBtn" class="btn-action-primary text-sm py-4 px-10 shadow-lg transition-all duration-300">
+            <span>Download for Windows</span>
+          </a>
+        </div>
+
+        <div class="flex items-center justify-center gap-6 text-xs text-[#6F686C] font-mono">
+          <span>● Windows 11 Native</span>
+          <span>● Offline First</span>
+          <span>● Zero Telemetry</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       8. CONTACT & FEEDBACK SECTION (Levi Avatar on Left, Form on Right)
+       ========================================================================= -->
+  <section id="feedback" class="py-24 relative z-10 border-t border-white/60 bg-white/40">
+    <div class="max-w-5xl mx-auto px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 anim-reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-[#171517] tracking-tight">
+          Suggestions &amp; Contact
+        </h2>
+        <p class="text-sm text-[#625D60] mt-2">
+          Have an idea or feedback for ACKREMEN? Share your thoughts directly with the research team.
+        </p>
+      </div>
+
+      <div class="glass-card max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 p-8 sm:p-12">
+        
+        <!-- Left Side: Levi Avatar (Image 9 & 10 Style) -->
+        <div class="w-full md:w-5/12 text-center flex flex-col items-center justify-center anim-reveal from-left">
+          <div class="contact-avatar-blob mb-4">
+            <div class="ackremen-logo-eyes">
+              <div class="ackremen-logo-eye"></div>
+              <div class="ackremen-logo-eye"></div>
+            </div>
+          </div>
+          <h3 class="text-2xl font-black tracking-widest text-[#171517] uppercase">LEVI</h3>
+          <p class="text-xs text-[#625D60] font-mono mt-1">Autonomous Context Assistant</p>
+        </div>
+
+        <!-- Right Side: Full Name & Suggestion / Feedback Form -->
+        <div class="w-full md:w-7/12 text-left">
+          <form id="contactFeedbackForm" onsubmit="event.preventDefault(); window.handleFeedbackSubmit();" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-[#171517] mb-1.5">Full Name</label>
+              <input id="feedbackName" type="text" required placeholder="Enter your full name" class="contact-input-field" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-[#171517] mb-1.5">Email Address</label>
+              <input id="feedbackEmail" type="email" placeholder="you@example.com (optional)" class="contact-input-field" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-[#171517] mb-1.5">Suggestion or Feedback</label>
+              <textarea id="feedbackText" required rows="4" placeholder="Write your suggestion, feature request, or feedback here..." class="contact-input-field resize-none"></textarea>
+            </div>
+
+            <button type="submit" class="btn-action-primary w-full py-3 text-xs font-bold">
+              Submit Feedback
+            </button>
+          </form>
+
+          <div id="feedbackSuccessMsg" class="hidden mt-4 p-3 rounded-xl bg-[#ECFDF5] border border-[#237A63]/30 text-[#237A63] text-xs font-semibold text-center">
+            ✓ Thank you! Your feedback has been received.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MINIMAL FOOTER
+       ========================================================================= -->
+  <footer class="py-10 border-t border-white/60 text-xs text-[#6F686C]">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="ackremen-logo-blob" style="width: 24px; height: 24px;">
+          <div class="ackremen-logo-eyes" style="gap: 4.2px;">
+            <div class="ackremen-logo-eye" style="width: 3.2px; height: 7px;"></div>
+            <div class="ackremen-logo-eye" style="width: 3.2px; height: 7px;"></div>
+          </div>
+        </div>
+        <span class="font-bold text-[#171517]">ACKREMEN</span> · Context-Aware Multi-Agent System · Final Year Project
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#overview" class="hover:text-[#D94FB3]">Overview</a>
+        <a href="#pillars" class="hover:text-[#D94FB3]">Pillars</a>
+        <a href="#challenges" class="hover:text-[#D94FB3]">Challenges</a>
+        <a href="#download" class="hover:text-[#D94FB3]">Download</a>
+        <a href="#feedback" class="hover:text-[#D94FB3]">Feedback</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/levi-orb.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Scroll-Reveal IntersectionObserver -->
+  <script>
+    (function() {
+      const revealEls = document.querySelectorAll('.anim-reveal, .anim-stagger');
+      if (!revealEls.length) return;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+      revealEls.forEach(el => io.observe(el));
+    })();
+  </script>
+
+</body>
+</html>
